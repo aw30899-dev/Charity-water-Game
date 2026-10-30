@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#78a9bd">
+    <title>Community Water | Charity: water game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="game-shell">
+        <!-- The title screen explains the controls before the game timer starts. -->
+        <section class="screen title-screen" id="title-screen" aria-labelledby="game-title">
+            <header class="brand-row">
+                <img class="brand-logo" src="img/cw_logo_horizontal.png" alt="charity: water">
+                <span class="brand-tag">A clean water challenge</span>
+            </header>
+
+            <div class="title-content">
+                <div class="title-copy">
+                    <span class="eyebrow">EVERY DROP MAKES A DIFFERENCE</span>
+                    <h1 id="game-title">Community<br>Water</h1>
+                    <p class="title-intro">Carry clean water to the places that bring a community together.</p>
+                    <div class="title-art" aria-hidden="true"><span>💧</span></div>
+                </div>
+
+                <section class="instructions" aria-labelledby="instructions-title">
+                    <div class="instructions-heading">
+                        <h2 id="instructions-title"><span aria-hidden="true">▤</span> How to play</h2>
+                        <img class="instructions-can" src="img/water-can.png" alt="Water can">
+                    </div>
+                    <ol>
+                        <li><span>1</span><p>Hold the pump to fill your bucket. Let go when you are ready.</p></li>
+                        <li><span>2</span><p>Move the carrier to a school, home, or business, then confirm your delivery.</p></li>
+                        <li><span>3</span><p>Deliver before the five-minute timer runs out. Each stop sends you back to the pump.</p></li>
+                    </ol>
+                    <p class="challenge-note"><strong>Challenge:</strong> Fill to 60% or more for full points. Below 60%, your delivery earns half points.</p>
+                    <p class="point-key"><span>School +100</span><span>Home +50</span><span>Business +150</span></p>
+                </section>
+            </div>
+
+            <button class="action-button yellow-button title-play" id="play-button" type="button">Play now <span aria-hidden="true">→</span></button>
+        </section>
+
+        <!-- These two HUD values stay visible throughout both active game screens. -->
+        <section class="screen game-screen" id="fill-screen" aria-labelledby="fill-title" hidden>
+            <header class="game-header">
+                <p class="hud-pill timer-pill"><span aria-hidden="true">◷</span><span class="sr-only">Time remaining</span><strong id="fill-timer">05:00</strong></p>
+                <a class="small-brand" href="#title-screen" aria-label="charity: water"><img src="img/cw_logo.png" alt="charity: water"></a>
+                <p class="hud-pill score-pill"><span aria-hidden="true">★</span><span class="sr-only">Total score</span><strong id="fill-score">0 pts</strong></p>
+            </header>
+
+            <div class="screen-heading">
+                <span class="eyebrow">STEP 1 OF 2</span>
+                <h1 id="fill-title">Fill your bucket</h1>
+                <p>Hold the pump button. Release it to carry your water.</p>
+            </div>
+
+            <div class="fill-layout">
+                <div class="bucket-side">
+                    <div class="bucket" role="img" aria-label="Water bucket, 0 percent full">
+                        <div class="bucket-water" id="bucket-water"></div>
+                        <div class="fill-line" aria-hidden="true"><span>FILL LINE</span></div>
+                        <span class="bucket-handle" aria-hidden="true"></span>
+                    </div>
+                    <div class="fill-reading">
+                        <strong id="fill-percent" aria-live="polite">0%</strong>
+                        <span>FILLED</span>
+                    </div>
+                </div>
+
+                <div class="pump-side">
+                    <p class="pump-instruction" id="pump-instruction">Press and hold<br>to pump</p>
+                    <button class="pump-button" id="pump-button" type="button" aria-label="Hold to fill the bucket" aria-pressed="false">
+                        <span>HOLD</span>
+                    </button>
+                    <p class="fill-status" id="fill-status" role="status" aria-live="polite">Your bucket is ready.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen game-screen map-screen" id="map-screen" aria-labelledby="map-title" hidden>
+            <header class="game-header">
+                <p class="hud-pill timer-pill"><span aria-hidden="true">◷</span><span class="sr-only">Time remaining</span><strong id="map-timer">05:00</strong></p>
+                <a class="small-brand" href="#title-screen" aria-label="charity: water"><img src="img/cw_logo.png" alt="charity: water"></a>
+                <p class="hud-pill score-pill"><span aria-hidden="true">★</span><span class="sr-only">Total score</span><strong id="map-score">0 pts</strong></p>
+            </header>
+
+            <div class="screen-heading map-heading">
+                <span class="eyebrow">STEP 2 OF 2</span>
+                <h1 id="map-title">Choose a destination</h1>
+                <p>Slide the carrier to a community stop.</p>
+            </div>
+
+            <div class="map-stage" id="map-stage" aria-label="Community delivery map. Use the arrow buttons or keyboard arrow keys to move the water carrier.">
+                <div class="route-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="destination-row">
+                    <button class="destination school" type="button" data-destination="school" aria-pressed="false">
+                        <span class="destination-icon" aria-hidden="true">🏫</span><strong>School</strong><span>+100 pts</span>
+                    </button>
+                    <button class="destination home" type="button" data-destination="home" aria-pressed="false">
+                        <span class="destination-icon" aria-hidden="true">🏠</span><strong>Homes</strong><span>+50 pts</span>
+                    </button>
+                    <button class="destination business" type="button" data-destination="business" aria-pressed="false">
+                        <span class="destination-icon" aria-hidden="true">🏪</span><strong>Business</strong><span>+150 pts</span>
+                    </button>
+                </div>
+                <div class="carrier" id="carrier" aria-label="Water carrier">
+                    <span aria-hidden="true">🚶</span>
+                    <img src="img/water-can.png" alt="" aria-hidden="true">
+                </div>
+            </div>
+
+            <div class="map-controls">
+                <p class="map-prompt" id="map-feedback" role="status" aria-live="polite">Use the arrows to slide in any direction.</p>
+                <div class="arrow-pad" aria-label="Move the water carrier">
+                    <button type="button" data-direction="up" aria-label="Move up">↑</button>
+                    <button type="button" data-direction="left" aria-label="Move left">←</button>
+                    <button type="button" data-direction="down" aria-label="Move down">↓</button>
+                    <button type="button" data-direction="right" aria-label="Move right">→</button>
+                </div>
+                <button class="action-button pump-more-button" id="pump-more-button" type="button" disabled>Pump more water</button>
+            </div>
+        </section>
+
+        <section class="screen game-over-screen" id="game-over-screen" aria-labelledby="game-over-title" hidden>
+            <div class="game-over-banner">
+                <span class="banner-icon" aria-hidden="true">◷</span>
+                <span class="eyebrow">OUTSTANDING COMMUNITY EFFORT</span>
+                <h1 id="game-over-title">Time's up!</h1>
+            </div>
+
+            <section class="score-report" aria-labelledby="score-report-title">
+                <h2 id="score-report-title">Score report</h2>
+                <dl class="score-breakdown">
+                    <div><dt><span class="report-icon school-report" aria-hidden="true">🏫</span>School</dt><dd id="school-score">+0 pts</dd></div>
+                    <div><dt><span class="report-icon home-report" aria-hidden="true">🏠</span>Homes</dt><dd id="home-score">+0 pts</dd></div>
+                    <div><dt><span class="report-icon business-report" aria-hidden="true">🏪</span>Business</dt><dd id="business-score">+0 pts</dd></div>
+                </dl>
+                <div class="total-score"><strong>Total score</strong><strong id="total-score">0 pts</strong></div>
+            </section>
+
+            <button class="action-button yellow-button replay-button" id="replay-button" type="button">Play again <span aria-hidden="true">↻</span></button>
+        </section>
+    </main>
+
+    <!-- The player chooses when to leave the celebration and view their score. -->
+    <div class="celebration" id="celebration" role="dialog" aria-modal="true" aria-labelledby="celebration-title" hidden>
+        <div class="confetti" id="confetti" aria-hidden="true"></div>
+        <div class="celebration-message">
+            <span aria-hidden="true">💧</span>
+            <h2 id="celebration-title">Every drop counts!</h2>
+            <p>Thanks for delivering water to your community.</p>
+            <button class="action-button yellow-button" id="skip-celebration" type="button">See my score</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
